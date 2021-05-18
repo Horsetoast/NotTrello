@@ -2,6 +2,12 @@
 @import './variables.scss';
 
 html, body {
-  background: var(--gray-100);
+  background: var(--white);
+  color: var(--gray-300);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.page-title {
+  font-size: var(--text-lg);
+  font-weight: bold;
 }
