@@ -3,19 +3,21 @@
     class="board-card"
     :class="{ blank: !board, valid: isValid, 'loading pulsating': loading }"
   >
-    <div v-if="!board && !loading">
-      <input
-        type="text"
-        placeholder="..."
-        v-model="newBoardName"
-        ref="input"
-        @keyup.enter="createBoard"
-        @blur="clearName"
-      />
-      <span class="add-icon" v-if="isValid" @click="createBoard">+</span>
-    </div>
-    <div v-else-if="!loading">
+    <router-link v-if="!loading && board" :to="`/board/${board.id}`" tag="div">
       <p>{{ board.name }}</p>
+    </router-link>
+    <div v-else>
+      <template v-if="!board && !loading">
+        <input
+          type="text"
+          placeholder="..."
+          v-model="newBoardName"
+          ref="input"
+          @keyup.enter="createBoard"
+          @blur="clearName"
+        />
+        <span class="add-icon" v-if="isValid" @click="createBoard">+</span>
+      </template>
     </div>
   </div>
 </template>
@@ -47,13 +49,13 @@ export default {
     createBoard() {
       if (this.isValid) {
         this.$emit("createBoard", this.newBoardName);
-        this.newBoardName = ''
-        this.$refs['input'].blur()
+        this.newBoardName = "";
+        this.$refs["input"].blur();
       }
     },
     clearName() {
-      this.newBoardName = ""
-    }
+      this.newBoardName = "";
+    },
   },
 };
 </script>
@@ -63,8 +65,6 @@ export default {
   background: var(--secondary);
   border-radius: 4px;
   width: 240px;
-  height: 60px;
-  padding: 0 20px;
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -91,13 +91,16 @@ export default {
     width: 100%;
     display: flex;
     align-items: center;
+    padding: 0 20px;
+    height: 60px;
   }
   .add-icon {
     font-size: var(--text-sm);
     font-weight: bold;
     color: var(--white);
   }
-  input, p {
+  input,
+  p {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
