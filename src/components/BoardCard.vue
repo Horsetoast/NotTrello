@@ -1,7 +1,8 @@
 <template>
   <div class="board-card" :class="{ blank: !board, valid: isValid }">
     <div v-if="!board">
-      <input type="text" placeholder="..." v-model="newBoardName" />
+      <input type="text" placeholder="..." v-model="newBoardName" @keyup.enter="createBoard"/>
+      <span class="add-icon" v-if="isValid" @click="createBoard">+</span>
     </div>
     <div v-else>
       <p>{{ board.name }}</p>
@@ -49,6 +50,7 @@ export default {
   display: flex;
   align-items: center;
   box-sizing: border-box;
+  cursor: pointer;
   &.blank {
     opacity: 0.5;
     &:hover {
@@ -60,8 +62,10 @@ export default {
   }
   & > div {
     width: 100%;
+    display: flex;
+    align-items: center;
   }
-  p {
+  p, span {
     font-size: var(--text-sm);
     font-weight: bold;
     color: var(--white);
