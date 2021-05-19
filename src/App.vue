@@ -1,22 +1,16 @@
 <template>
   <div id="app">
     <NavigationHeader/>
-    <router-view :boards="boards"/>
+    <router-view/>
   </div>
 </template>
 
 <script>
 import NavigationHeader from '@/components/NavigationHeader'
-import data from '../data/data.json'
 
 export default {
   components: {
     NavigationHeader
-  },
-  data() {
-    return {
-      boards: data.boards
-    }
   }
 }
 </script>

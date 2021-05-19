@@ -1,10 +1,20 @@
 <template>
-  <div class="board-card" :class="{ blank: !board, valid: isValid }">
-    <div v-if="!board">
-      <input type="text" placeholder="..." v-model="newBoardName" @keyup.enter="createBoard"/>
+  <div
+    class="board-card"
+    :class="{ blank: !board, valid: isValid, 'loading pulsating': loading }"
+  >
+    <div v-if="!board && !loading">
+      <input
+        type="text"
+        placeholder="..."
+        v-model="newBoardName"
+        ref="input"
+        @keyup.enter="createBoard"
+        @blur="clearName"
+      />
       <span class="add-icon" v-if="isValid" @click="createBoard">+</span>
     </div>
-    <div v-else>
+    <div v-else-if="!loading">
       <p>{{ board.name }}</p>
     </div>
   </div>
@@ -16,6 +26,10 @@ export default {
     board: {
       type: Object,
       default: null,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -33,8 +47,13 @@ export default {
     createBoard() {
       if (this.isValid) {
         this.$emit("createBoard", this.newBoardName);
+        this.newBoardName = ''
+        this.$refs['input'].blur()
       }
     },
+    clearName() {
+      this.newBoardName = ""
+    }
   },
 };
 </script>
@@ -46,11 +65,9 @@ export default {
   width: 240px;
   height: 60px;
   padding: 0 20px;
-  box-shadow: var(--shadow-lg);
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  cursor: pointer;
   &.blank {
     opacity: 0.5;
     &:hover {
@@ -60,30 +77,41 @@ export default {
       opacity: 0.75;
     }
   }
+  &:not(.blank):not(.loading):hover {
+    background: var(--secondary-hover);
+  }
+  &.loading {
+    background: var(--gray-100);
+  }
+  &:not(.loading) {
+    box-shadow: var(--shadow-lg);
+    cursor: pointer;
+  }
   & > div {
     width: 100%;
     display: flex;
     align-items: center;
   }
-  p, span {
+  .add-icon {
     font-size: var(--text-sm);
     font-weight: bold;
     color: var(--white);
   }
-  input {
+  input, p {
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
     background: none;
     width: 100%;
-    height: 40px;
+    height: 16px;
     border: none;
     outline: none;
     font-size: var(--text-sm);
     font-weight: bold;
     color: var(--white);
     &::placeholder {
-      /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: var(--white);
-      opacity: 1; /* Firefox */
+      opacity: 1;
     }
   }
 }

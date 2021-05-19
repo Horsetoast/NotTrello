@@ -1,0 +1,24 @@
+.show-enter-active,
+.show-leave-enter {
+    transition: all .3s ease;
+}
+.show-enter,
+.show-leave-to {
+    opacity: 0;
+}
+
+@keyframes pulsating {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.pulsating {
+  animation: pulsating 0.8s infinite;
+}
