@@ -1,13 +1,11 @@
 :root {
   // Colors
-  --primary: #ea212e;
-  --primary-hover: #fd2b39;
-  --secondary: #f9ad31;
-  --secondary-hover: #ffbb4d;
-  --white: #ffffff;
-  --gray-100: #efefec;
-  --gray-200: #686866;
-  --gray-300: #2d2d2d;
+  --color-primary: #f9ad31;
+  --color-primary-darker: #ffbb4d;
+  --color-white: #ffffff;
+  --color-gray-100: #efefec;
+  --color-gray-200: #686866;
+  --color-gray-300: #2d2d2d;
 
   // Breakpoints
   --lg: 1200px;
@@ -22,4 +20,15 @@
   --shadow-sm: 0 2px 3px rgba(0, 0, 0, 0.06);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 6px 9px rgba(0, 0, 0, 0.06);
+
+  // Default theme
+  --font-color: var(--color-gray-300);
+  --bg-color: var(--color-white);  
+  --loading-color: var(--color-gray-100);  
+}
+
+[data-theme="dark"] {
+  --font-color: var(--color-white);
+  --bg-color: var(--color-gray-300);  
+  --loading-color: var(--color-gray-200);  
 }

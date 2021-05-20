@@ -55,8 +55,8 @@ export default {
   margin-top: 15px;
   p {
     padding: 10px;
-    background: var(--white);
-    color: var(--gray-300);
+    background: var(--bg-color);
+    color: var(--font-color);
     font-size: var(--text-sm);
     border-radius: 2px;
   }
@@ -69,12 +69,12 @@ export default {
     border: none;
     outline: none;
     font-size: var(--text-sm);
-    color: var(--gray-300);
+    color: var(--font-color);
     padding: 9px 10px;
     border-radius: 2px;
-    background: var(--secondary-hover);
+    background: var(--color-primary-darker);
     &::placeholder {
-      color: var(--gray-300);
+      color: var(--font-color);
       opacity: 1;
     }
   }

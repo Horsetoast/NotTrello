@@ -67,7 +67,11 @@ export default {
       this.$emit('createItem', listId, name)
     },
     clearName() {
-      this.newListName = "";
+      // Short delay needed for "add-icon"
+      // to work when blur event is triggered
+      setTimeout(() => {
+        this.newListName = "";
+      }, 100)
     },
   },
 };
@@ -75,7 +79,7 @@ export default {
 
 <style scoped lang="scss">
 .list-card {
-  background: var(--secondary);
+  background: var(--color-primary);
   border-radius: 4px;
   width: 240px;
   display: flex;
@@ -93,7 +97,8 @@ export default {
     }
   }
   &.loading {
-    background: var(--gray-100);
+    background: var(--loading-color);
+    min-height: 60px;
   }
   &:not(.loading) {
     box-shadow: var(--shadow-lg);
@@ -106,7 +111,8 @@ export default {
   .add-icon {
     font-size: var(--text-sm);
     font-weight: bold;
-    color: var(--white);
+    color: var(--bg-color);
+    cursor: pointer;
   }
   input,
   p {
@@ -120,9 +126,9 @@ export default {
     outline: none;
     font-size: var(--text-sm);
     font-weight: bold;
-    color: var(--white);
+    color: var(--bg-color);
     &::placeholder {
-      color: var(--white);
+      color: var(--bg-color);
       opacity: 1;
     }
   }

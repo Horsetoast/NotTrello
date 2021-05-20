@@ -54,7 +54,11 @@ export default {
       }
     },
     clearName() {
-      this.newBoardName = "";
+      // Short delay needed for "add-icon"
+      // to work when blur event is triggered
+      setTimeout(() => {
+        this.newBoardName = "";
+      }, 100);
     },
   },
 };
@@ -62,7 +66,7 @@ export default {
 
 <style scoped lang="scss">
 .board-card {
-  background: var(--secondary);
+  background: var(--color-primary);
   border-radius: 4px;
   width: 240px;
   display: flex;
@@ -78,10 +82,11 @@ export default {
     }
   }
   &:not(.blank):not(.loading):hover {
-    background: var(--secondary-hover);
+    background: var(--color-primary-darker);
   }
   &.loading {
-    background: var(--gray-100);
+    background: var(--loading-color);
+    min-height: 60px;
   }
   &:not(.loading) {
     box-shadow: var(--shadow-lg);
@@ -96,7 +101,7 @@ export default {
   .add-icon {
     font-size: var(--text-sm);
     font-weight: bold;
-    color: var(--white);
+    color: var(--bg-color);
   }
   input,
   p {
@@ -110,9 +115,9 @@ export default {
     outline: none;
     font-size: var(--text-sm);
     font-weight: bold;
-    color: var(--white);
+    color: var(--bg-color);
     &::placeholder {
-      color: var(--white);
+      color: var(--bg-color);
       opacity: 1;
     }
   }
