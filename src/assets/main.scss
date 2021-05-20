@@ -15,4 +15,12 @@ input {
 .page-title {
   font-size: var(--text-lg);
   font-weight: bold;
+  &.loading {
+    height: 40px;
+    width: 300px;
+    max-width: 100%;
+    background: var(--gray-100);
+    display: inline-block;
+    border-radius: 5px;
+  }
 }

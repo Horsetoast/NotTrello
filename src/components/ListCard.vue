@@ -1,31 +1,40 @@
 <template>
   <div
-    class="board-card"
-    :class="{ blank: !board, valid: isValid, 'loading pulsating': loading }"
+    class="list-card"
+    :class="{ blank: !list, valid: isValid, 'loading pulsating': loading }"
   >
-    <router-link v-if="!loading && board" :to="`/board/${board.id}`" tag="div">
-      <p>{{ board.name }}</p>
-    </router-link>
+    <div v-if="!loading && list">
+      <p>{{ list.name }}</p>
+      <div class="list-items">
+        <ListItem v-for="item in list.items" :item="item" :key="item.id"/>
+        <ListItem @createItem="createItem"/>
+      </div>
+    </div>
     <div v-else>
-      <template v-if="!board && !loading">
+      <template v-if="!list && !loading">
         <input
           type="text"
           placeholder="..."
-          v-model="newBoardName"
+          v-model="newListName"
           ref="input"
-          @keyup.enter="createBoard"
+          @keyup.enter="createList"
           @blur="clearName"
         />
-        <span class="add-icon" v-if="isValid" @click="createBoard">+</span>
+        <span class="add-icon" v-if="isValid" @click="createList">+</span>
       </template>
     </div>
   </div>
 </template>
 
 <script>
+import ListItem from '@/components/ListItem'
+
 export default {
+  components: {
+    ListItem
+  },
   props: {
-    board: {
+    list: {
       type: Object,
       default: null,
     },
@@ -36,37 +45,40 @@ export default {
   },
   data() {
     return {
-      newBoardName: "",
+      newListName: "",
     };
   },
   computed: {
     isValid() {
-      // Board names shouldn't be empty strings
-      return this.newBoardName.length;
+      // List names shouldn't be empty strings
+      return this.newListName.length;
     },
   },
   methods: {
-    createBoard() {
+    createList() {
       if (this.isValid) {
-        this.$emit("createBoard", this.newBoardName);
-        this.newBoardName = "";
+        this.$emit("createList", this.newListName);
+        this.newListName = "";
         this.$refs["input"].blur();
       }
     },
+    createItem(name) {
+      const listId = this.list.id
+      this.$emit('createItem', listId, name)
+    },
     clearName() {
-      this.newBoardName = "";
+      this.newListName = "";
     },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.board-card {
+.list-card {
   background: var(--secondary);
   border-radius: 4px;
   width: 240px;
   display: flex;
-  align-items: center;
   box-sizing: border-box;
   &.blank {
     opacity: 0.5;
@@ -76,21 +88,19 @@ export default {
     &.valid {
       opacity: 0.75;
     }
-  }
-  &:not(.blank):not(.loading):hover {
-    background: var(--secondary-hover);
+    & > div {
+      display: flex;
+    }
   }
   &.loading {
     background: var(--gray-100);
   }
   &:not(.loading) {
     box-shadow: var(--shadow-lg);
-    cursor: pointer;
   }
   & > div {
     width: 100%;
-    display: flex;
-    align-items: center;
+    box-sizing: border-box;
     padding: 20px;
   }
   .add-icon {

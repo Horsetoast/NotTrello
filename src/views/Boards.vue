@@ -4,7 +4,7 @@
     <div class="boards-wrapper" v-if="loading" key="loading">
       <BoardCard loading v-for="i in 3" :key="i" />
     </div>
-    <div class="boards-wrapper" v-else key="loaded">
+    <div class="boards-wrapper" v-else-if="boards" key="loaded">
       <BoardCard v-for="board in boards" :board="board" :key="board.id" />
       <BoardCard @createBoard="createBoard" />
     </div>
@@ -31,6 +31,7 @@ export default {
   methods: {
     createBoard(name) {
       const board = createBoard(name);
+      // Update local state
       this.boards.push(board);
     },
     async loadBoards() {

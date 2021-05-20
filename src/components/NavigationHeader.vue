@@ -1,6 +1,6 @@
 <template>
   <div id="header">
-    <h1>NotTrello™</h1>
+    <h1><router-link to="/">NotTrello™</router-link></h1>
   </div>
 </template>
 
@@ -23,6 +23,10 @@ export default {
   h1 {
     font-weight: bold;
     font-size: var(--text-md);
+    a {
+      color: var(--gray-300);
+      text-decoration: none;
+    }
   }
 }
 </style>
