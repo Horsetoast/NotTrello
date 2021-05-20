@@ -1,4 +1,4 @@
-# profesia-assignment
+# NotTrello™
 
 ## Project setup
 ```
@@ -15,15 +15,8 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Improvement ideas
++ Convert nested data into flat arrays of boards, lists and items
++ Use Vuex for state management
++ Implement edit and delete actions
++ Add drag & drop feature for items and lists
